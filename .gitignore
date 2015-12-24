@@ -1,0 +1,13 @@
+app/**/*.css.map
+app/.tmp
+app/bower_components
+.tmp
+.sass-cache
+
+### Yeoman template
+node_modules/
+bower_components/
+*.log
+
+build/
+dist/

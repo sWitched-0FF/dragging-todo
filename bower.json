@@ -1,0 +1,9 @@
+{
+	"name" : "todo",
+	"version" : "0.0.1",
+	"dependencies" : {
+		"angular-animate" : "~1.4.6",
+		"angular-bootstrap" : "~0.13.4",
+		"angular-ui-router" : "~0.2.15"
+	}
+}
