@@ -1,4 +1,5 @@
 'use strict';
+
 var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout) {
 	'ngInject';
 	

@@ -1,28 +1,43 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
+var connect = require('gulp-connect');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 gulp.task('uglify', function() {
-  return gulp.src('app/*.js')
+  return gulp.src('./app/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('sass', function() {
-  return gulp.src('app/assets/**/*.scss')
+  return gulp.src('./app/assets/**/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('makeDist', ['uglify', 'sass'], function() {
-  return gulp.src('app/**/*.html')
-    .pipe(gulp.dest('dist'));
+gulp.task('browserify', function() {
+    return browserify('./app/app.js')
+        .bundle()
+		.pipe(source('app.js'))
+        .pipe(gulp.dest('./dist'));
 });
 
-var watcher = gulp.watch(['app/**/*.js','app/**/*.scss','app/**/*.html'], ['makeDist']);
-
-watcher.on('change', function(event) {
-  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+gulp.task('connect', function () {
+    connect.server({
+        root: 'dist',
+        port: 9000
+    })
 });
 
-gulp.task('default', ['makeDist']);
+gulp.task('makeDist', ['browserify', 'sass'], function() {
+  return gulp.src('./app/**/*.html')
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('watch', function() {
+    gulp.watch(['./app/**/*.js', './app/**/*.scss', './app/**/*.html'], ['makeDist']);
+})
+
+gulp.task('default', ['makeDist', 'watch', 'connect']);

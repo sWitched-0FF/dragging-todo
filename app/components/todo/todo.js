@@ -1,10 +1,10 @@
 'use strict';
 
 require('angular');
+require('angular-aria');
 require('angular-animate');
-require('angular-bootstrap');
+require('angular-material');
 require('angular-ui-router');
-
 
 /**
  * @name todo
@@ -14,8 +14,7 @@ require('angular-ui-router');
  */
 var todo = angular.module('todo', [
 	'ui.router',
-	'ui.bootstrap',
-	'ngAnimate'
+	'ngMaterial'
 ]);
 
 todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootScopeProvider) {
@@ -30,7 +29,7 @@ todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootSco
 	$urlRouterProvider.otherwise('/');
 });
 
-todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
+//todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
 
 //crm.directive('header', require('./directives/header/header'));
 
