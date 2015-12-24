@@ -5,6 +5,6 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout) {
 	
 	console.log('TodoCtrl');
 
-
+};
 
 module.exports = TodoCtrl;

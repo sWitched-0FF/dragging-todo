@@ -29,7 +29,7 @@ todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootSco
 	$urlRouterProvider.otherwise('/');
 });
 
-//todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
+todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
 
 //crm.directive('header', require('./directives/header/header'));
 
