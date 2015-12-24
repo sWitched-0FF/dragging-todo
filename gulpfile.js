@@ -19,7 +19,7 @@ gulp.task('makeDist', ['uglify', 'sass'], function() {
     .pipe(gulp.dest('dist'));
 });
 
-var watcher = gulp.watch(['app/**/*.js','app/**/*.scss','app/**/*.html'], ['uglify']);
+var watcher = gulp.watch(['app/**/*.js','app/**/*.scss','app/**/*.html'], ['makeDist']);
 
 watcher.on('change', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
