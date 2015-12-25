@@ -4,12 +4,7 @@ var sass = require('gulp-sass');
 var connect = require('gulp-connect');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-
-gulp.task('uglify', function() {
-  return gulp.src('./app/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'));
-});
+var buffer = require('vinyl-buffer');
 
 gulp.task('sass', function() {
   return gulp.src('./app/assets/**/*.scss')
@@ -21,6 +16,8 @@ gulp.task('browserify', function() {
     return browserify('./app/app.js')
         .bundle()
 		.pipe(source('app.js'))
+		.pipe(buffer())
+		.pipe(uglify())
         .pipe(gulp.dest('./dist'));
 });
 
