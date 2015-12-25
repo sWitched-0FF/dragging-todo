@@ -15,7 +15,7 @@
 
 <md-sidenav md-component-id="left">
 	<md-toolbar class="md-theme-light">
-        <div class="md-toolbar-tools">
+		<div class="md-toolbar-tools">
 			<md-button 
 				class="md-icon-button"
 				aria-label="LeftMenu"
@@ -27,134 +27,58 @@
 				<span>Sidebar Left</span>
 			</h2>
 		</div>
-    </md-toolbar>
-    <md-list class="action-list">
+	</md-toolbar>
+	<md-list class="action-list">
 		<md-list-item>
-            <md-icon class="material-icons">add</md-icon>
-            <div class="md-list-item-text">Add new</div>
-        </md-list-item>
-        <md-list-item>
-            <md-icon class="material-icons">clear_all</md-icon>
-            <div class="md-list-item-text">Clear all</div>
-        </md-list-item>
+			<md-icon class="material-icons">add</md-icon>
+			<div class="md-list-item-text">Add new</div>
+		</md-list-item>
+		<md-list-item>
+			<md-icon class="material-icons">clear_all</md-icon>
+			<div class="md-list-item-text">Clear all</div>
+		</md-list-item>
 	</md-list>
-
 </md-sidenav>
 
-<md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-	<div layout="row" layout-wrap class="simpleDemo row">
-		<div ng-repeat="(listName, list) in models.lists" layout="column" flex="50" flex-lg="33" flex-xs="100">
+<md-content class="md-padding" layout-align="center start">
+	<div layout="row" layout-wrap>
+		<div 
+			ng-repeat="(listName, list) in models.todoLists"
+			layout="column"
+			flex="50" flex-lg="33" flex-xs="100"
+		>
 			<md-card>
 				<md-card-title>
-				  <md-card-title-text>
-					<span class="md-headline">List {{listName}}</span>
-				  </md-card-title-text>
+					<md-card-title-text>
+						<span class="md-headline">List {{listName}}</span>
+					</md-card-title-text>
 				</md-card-title>
-				<md-card-content>
-					<ul dnd-list="list">
-						<li ng-repeat="item in list"
-							dnd-draggable="item"
-							dnd-moved="list.splice($index, 1)"
-							dnd-effect-allowed="move"
-							dnd-selected="models.selected = item"
-							ng-class="{'selected': models.selected === item}"
-							>
-							{{item.label}}
-						</li>
+				<md-card-content dnd-list="list">
+					<md-card 
+						ng-repeat="item in list"
+						dnd-draggable="item"
+						dnd-moved="list.splice($index, 1)"
+						dnd-effect-allowed="move"
+						dnd-selected="models.selected = item"
+						ng-class="{'selected': models.selected === item}"
+					>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">{{item.label}}</span>
+							</md-card-title-text>
+						</md-card-title>
+						<md-card-content>
+							Content
+						<md-card-content>
+					</md-card>
 					</ul>
 				</md-card-content>
 			</md-card>
-	  </div>
-	  <div layout="column" flex="50" flex-lg="33" flex-xs="100">
-		  <md-card>
-			<md-card-title>
-			  <md-card-title-text>
-				<span class="md-headline">Todos card</span>
-			  </md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-			  <p>
-				The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-				two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-			  </p>
-			  <md-card>
-				<md-card-title>
-				  <md-card-title-text>
-					<span class="md-headline">Todos card</span>
-				  </md-card-title-text>
-				</md-card-title>
-				<md-card-content>
-				  <p>
-					The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-					two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-				  </p>
-				</md-card-content>
-			  </md-card>
-			  <md-card>
-				<md-card-title>
-				  <md-card-title-text>
-					<span class="md-headline">Todos card</span>
-				  </md-card-title-text>
-				</md-card-title>
-				<md-card-content>
-				  <p>
-					The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-					two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-				  </p>
-				</md-card-content>
-			  </md-card>
-			</md-card-content>
-		  </md-card>
 		</div>
-      <div layout="column" flex="50" flex-lg="33" flex-xs="100">
-		  <md-card>
-			<md-card-title>
-			  <md-card-title-text>
-				<span class="md-headline">Todos card</span>
-			  </md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-			  <p>
-				The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-				two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-			  </p>
-			</md-card-content>
-		  </md-card>
-		</div>
-		<div layout="column" flex="50" flex-lg="33" flex-xs="100">
-		  <md-card>
-			<md-card-title>
-			  <md-card-title-text>
-				<span class="md-headline">Todos card</span>
-			  </md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-			  <p>
-				The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-				two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-			  </p>
-			</md-card-content>
-		  </md-card>
-		</div>
-		<div layout="column" flex="50" flex-lg="33" flex-xs="100">
-		  <md-card>
-			<md-card-title>
-			  <md-card-title-text>
-				<span class="md-headline">Todos card</span>
-			  </md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-			  <p>
-				The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-				two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-			  </p>
-			</md-card-content>
-		  </md-card>
-		</div>
-    </div>
-	 <div class="lock-size main-action">
+	</div>
+	<div class="lock-size main-action">
 		<md-button class="md-fab md-primary md-hue-2">
 			<md-icon aria-label="Add new todo list" class="material-icons">add</md-icon>
 		</md-button>
 	</div>
-  </md-content>
+</md-content>
