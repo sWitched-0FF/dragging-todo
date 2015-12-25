@@ -1,6 +1,6 @@
 'use strict';
 
-var TodoCtrl = function($scope, $mdSidenav) {
+var TodoCtrl = function($scope, $timeout, $mdSidenav) {
 	'ngInject';
 	
 	/**
@@ -138,6 +138,7 @@ var TodoCtrl = function($scope, $mdSidenav) {
 	$scope.deleteItem = function(list, index) {
 		list.splice(index, 1);
 	};
+
 	
 	/**
 	 * Open menu of list

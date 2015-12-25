@@ -46,18 +46,25 @@
 </md-sidenav>
 
 <md-content class="md-padding" layout-align="center start">
-	<div layout="row" layout-wrap>
+	<div 
+		layout="row"
+		layout-wrap
+		dnd-list="models.todoLists"
+		dnd-allowed-types="models.allowedTypes"
+	>
 		<div 
-			ng-repeat="list in models.todoLists track by $index"
+			class="dndPlaceholder"
 			layout="column"
 			flex="50" flex-lg="33" flex-xs="100"
-			dnd-list="models.todoLists"
-			dnd-allowed-types="models.allowedTypes"
+		></div>
+		<div 
+			ng-repeat="list in models.todoLists"
+			layout="column"
+			flex="50" flex-lg="33" flex-xs="100"
 		>
 			<md-card
 				dnd-draggable="list"
-				dnd-moved="models.todoLists.splice($index, 1)"
-				dnd-effect-allowed="move"
+				dnd-moved="deleteItem(models.todoLists, $index)"
 				dnd-type="list.type"
 			>
 				<md-card-header>
@@ -134,10 +141,13 @@
 					>
 						Add new row
 					</md-button>
+					<md-card
+						class="dndPlaceholder"
+					></md-card>
 					<md-card 
-						ng-repeat="item in list.items track by $index"
+						ng-repeat="item in list.items"
 						dnd-draggable="item"
-						dnd-moved="list.items.splice($index, 1)"
+						dnd-moved="deleteItem(list.items, $index)"
 						dnd-effect-allowed="move"
 						dnd-type="item.type"
 					>
@@ -157,6 +167,9 @@
 									class="material-icons"
 									ng-click="saveContent(item)"
 								>
+									<md-tooltip md-direction="top">
+										Save changes
+									</md-tooltip>
 									done
 								</md-icon>
 								<textarea ng-model="item.content" columns="1"></textarea>
@@ -170,6 +183,9 @@
 									aria-label="Copy row"
 									ng-click="copyItem(item, list.items)"
 								>
+									<md-tooltip md-direction="top">
+										Copy row
+									</md-tooltip>
 									<md-icon class="material-icons">content_copy</md-icon>
 								</md-button>
 								<md-button 
@@ -177,6 +193,9 @@
 									aria-label="Delete row"
 									ng-click="deleteItem(list.items, $index)"
 								>
+									<md-tooltip md-direction="top">
+										Delete row
+									</md-tooltip>
 									<md-icon class="material-icons">delete</md-icon>
 								</md-button>
 							</md-card-actions>
@@ -189,6 +208,9 @@
 							ng-click="addNewRow(list)"
 						>
 							<md-icon class="material-icons">add</md-icon>
+							<md-tooltip md-direction="top">
+								Add new row
+							</md-tooltip>
 						</md-button>
 					</md-card-actions>
 				</md-card-content>
