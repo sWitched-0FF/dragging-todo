@@ -38,6 +38,15 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout, $mdS
 		list.items = [];
 	};
 	
+	$scope.editLabel  = function(list) {
+		list.editLabel = true;
+	};
+	
+	$scope.saveLabel  = function(list) {
+		list.label = list.label;
+		list.editLabel = false;
+	};
+	
 	$scope.openMenu = function($mdOpenMenu, ev) {
 		$mdOpenMenu(ev);
 	};
