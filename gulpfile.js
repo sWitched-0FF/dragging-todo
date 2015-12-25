@@ -12,11 +12,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('images', function() {
-  return gulp.src('./app/**/*.svg')
-    .pipe(gulp.dest('./dist'));
-});
-
 gulp.task('browserify', function() {
     return browserify('./app/app.js')
         .bundle()
@@ -31,7 +26,7 @@ gulp.task('connect', function () {
     })
 });
 
-gulp.task('makeDist', ['browserify', 'sass', 'images'], function() {
+gulp.task('makeDist', ['browserify', 'sass'], function() {
   return gulp.src('./app/**/*.html')
     .pipe(gulp.dest('./dist'));
 });
