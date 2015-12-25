@@ -42,6 +42,8 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout, $mdS
 	
 	/**
 	 * Add new row in TODO list
+	 *
+	 * @param {array} list
 	 */
 	$scope.addNewRow = function(list) {
 		list.items.push({
@@ -53,6 +55,8 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout, $mdS
 	
 	/**
 	 * Clear all rows in TODO list
+	 *
+	 * @param {array} list
 	 */
 	$scope.clearList = function(list) {
 		list.items = [];
@@ -60,38 +64,79 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout, $mdS
 	
 	/**
 	 * Edit label TODO list
+	 *
+	 * @param {object} item
 	 */
-	$scope.editLabel  = function(list) {
-		list.editLabel = true;
+	$scope.editLabel = function(item) {
+		item.editLabel = true;
 	};
 	
 	/**
 	 * Cancel editing label TODO list
+	 *
+	 * @param {object} item
 	 */
-	$scope.saveLabel  = function(list) {
-		list.editLabel = false;
+	$scope.saveLabel = function(item) {
+		item.editLabel = false;
 	};
 	
 	/**
 	 * Edit description TODO item
+	 *
+	 * @param {object} item
 	 */
-	$scope.editContent  = function(item) {
+	$scope.editContent = function(item) {
 		item.editContent = true;
 	};
 	
 	/**
 	 * Cancel editing description TODO item
+	 *
+	 * @param {object} item
 	 */
-	$scope.saveContent  = function(item) {
+	$scope.saveContent = function(item) {
 		item.editContent = false;
 	};
 	
 	/**
 	 * Cancel editing label TODO list
+	 *
+	 * @param {object} item
 	 */
-	$scope.saveLabel  = function(list) {
-		list.label = list.label;
-		list.editLabel = false;
+	$scope.saveLabel = function(item) {
+		item.editLabel = false;
+	};
+	
+	/**
+	 * Copy item list or row
+	 * 
+	 * @param {object} item
+	 * @param {array} list
+	 */
+	$scope.copyItem = function(item, list) {
+		var copyItem = angular.copy(item);
+
+		copyItem.label = 'Copy of ' + item.label;
+		copyItem.editContent = false;
+		copyItem.editLabel = false;
+		
+		if (copyItem.items) {
+			angular.forEach(copyItem.items, function(item) {
+				item.editContent = false;
+			});
+		}
+		
+		list.push(copyItem);
+	};
+	
+	/**
+	 * Remove item list or row
+	 * 
+	 * @param {array} list
+	 * @param {number} index
+	 */
+	$scope.deleteItem = function(list, index) {
+		list.splice(index, 1);
 	};
 	
 	/**

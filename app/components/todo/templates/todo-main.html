@@ -33,14 +33,14 @@
 			ng-click="addTodoList()"
 		>
 			<md-icon class="material-icons">add</md-icon>
-			<div class="md-list-item-text">Add new</div>
+			<div class="md-list-item-text">Add new list</div>
 		</md-list-item>
 		<md-list-item 
 			ng-click="clearAllTodoList()"
 			ng-disabled="!models.todoLists.length"
 		>
 			<md-icon class="material-icons">clear_all</md-icon>
-			<div class="md-list-item-text">Clear all</div>
+			<div class="md-list-item-text">Remove all lists</div>
 		</md-list-item>
 	</md-list>
 </md-sidenav>
@@ -48,7 +48,7 @@
 <md-content class="md-padding" layout-align="center start">
 	<div layout="row" layout-wrap>
 		<div 
-			ng-repeat="list in models.todoLists"
+			ng-repeat="list in models.todoLists track by $index"
 			layout="column"
 			flex="50" flex-lg="33" flex-xs="100"
 			dnd-list="models.todoLists"
@@ -96,6 +96,23 @@
 								</md-button>
 							</md-menu-item>
 							<md-menu-item>
+								<md-button
+									ng-click="copyItem(list, models.todoLists)"
+								>
+									<md-icon class="material-icons" md-menu-align-target>content_copy</md-icon>
+									Copy list
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button
+									ng-click="deleteItem(models.todoLists, $index)"
+								>
+									<md-icon class="material-icons" md-menu-align-target>delete</md-icon>
+									Delete list
+								</md-button>
+							</md-menu-item>
+							
+							<md-menu-item>
 								<md-button 
 									ng-click="clearList(list)"
 									ng-disabled="!list.items.length"
@@ -118,7 +135,7 @@
 						Add new row
 					</md-button>
 					<md-card 
-						ng-repeat="item in list.items"
+						ng-repeat="item in list.items track by $index"
 						dnd-draggable="item"
 						dnd-moved="list.items.splice($index, 1)"
 						dnd-effect-allowed="move"
@@ -144,6 +161,25 @@
 								</md-icon>
 								<textarea ng-model="item.content" columns="1"></textarea>
 							</md-input-container>
+							<md-card-actions 
+								layout="row" layout-align="end center"
+								ng-if="item.editContent"
+							>
+								<md-button 
+									class="md-icon-button"
+									aria-label="Copy row"
+									ng-click="copyItem(item, list.items)"
+								>
+									<md-icon class="material-icons">content_copy</md-icon>
+								</md-button>
+								<md-button 
+									class="md-icon-button"
+									aria-label="Delete row"
+									ng-click="deleteItem(list.items, $index)"
+								>
+									<md-icon class="material-icons">delete</md-icon>
+								</md-button>
+							</md-card-actions>
 						</md-card-content>
 					</md-card>
 					<md-card-actions layout="row" layout-align="end center">
