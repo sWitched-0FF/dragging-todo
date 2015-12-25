@@ -65,6 +65,7 @@
 						<h1 
 							class="md-title" 
 							ng-if="!list.editLabel"
+							ng-click="editLabel(list)"
 						>
 							{{list.label}}
 						</h1>
@@ -110,6 +111,12 @@
 					dnd-list="list.items"
 					dnd-allowed-types="list.allowedTypes"
 				>
+					<md-button 
+						ng-click="addNewRow(list)"
+						ng-if="!list.items.length"
+					>
+						Add new row
+					</md-button>
 					<md-card 
 						ng-repeat="item in list.items"
 						dnd-draggable="item"
@@ -118,7 +125,25 @@
 						dnd-type="item.type"
 					>
 						<md-card-content>
-							Content
+							<div 
+								ng-hide="item.editContent"
+								ng-click="editContent(item)"
+							>
+								{{item.content}}
+							</div>
+							<md-input-container 
+								class="md-block"
+								ng-if="item.editContent"
+							>
+								<label>Description</label>
+								<md-icon 
+									class="material-icons"
+									ng-click="saveContent(item)"
+								>
+									done
+								</md-icon>
+								<textarea ng-model="item.content" columns="1"></textarea>
+							</md-input-container>
 						</md-card-content>
 					</md-card>
 					<md-card-actions layout="row" layout-align="end center">
