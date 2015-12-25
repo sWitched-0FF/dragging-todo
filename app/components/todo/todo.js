@@ -17,7 +17,7 @@ var todo = angular.module('todo', [
 	'ngMaterial'
 ]);
 
-todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootScopeProvider) {
+todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootScopeProvider, $mdThemingProvider) {
 	var DIR = './components/todo/templates';
 
 	$stateProvider
@@ -27,10 +27,11 @@ todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootSco
 			controller: 'TodoCtrl'
 		});
 	$urlRouterProvider.otherwise('/');
+	
+	$mdThemingProvider.theme('default')
+		.primaryPalette('light-green');
 });
 
 todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
-
-//crm.directive('header', require('./directives/header/header'));
 
 module.exports = todo;
