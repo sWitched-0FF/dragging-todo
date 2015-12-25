@@ -5,6 +5,7 @@ require('angular-aria');
 require('angular-animate');
 require('angular-material');
 require('angular-ui-router');
+require('angular-drag-and-drop-lists');
 
 /**
  * @name todo
@@ -14,7 +15,8 @@ require('angular-ui-router');
  */
 var todo = angular.module('todo', [
 	'ui.router',
-	'ngMaterial'
+	'ngMaterial',
+	'dndLists'
 ]);
 
 todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootScopeProvider, $mdThemingProvider) {

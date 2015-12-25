@@ -28,27 +28,34 @@
 			</h2>
 		</div>
     </md-toolbar>
-	<md-menu>
-		<md-menu-content width="4">
-			<md-menu-item>
-			  <md-button>
-				<md-icon md-svg-icon="call:dialpad" md-menu-align-target>+</md-icon>
-				Add todo list
-			  </md-button>
-			</md-menu-item>
-			<md-menu-item>
-			  <md-button disabled="disabled">
-				<md-icon md-svg-icon="call:voicemail">-</md-icon>
-				Clear all
-			  </md-button>
-			</md-menu-item>
-		</md-menu-content>
-	</md-menu>
+
 </md-sidenav>
 
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-    <div layout="row" layout-wrap>
-      <div layout="column" flex="50" flex-lg="33" flex-xs="100">
+	<div layout="row" layout-wrap class="simpleDemo row">
+		<div ng-repeat="(listName, list) in models.lists" layout="column" flex="50" flex-lg="33" flex-xs="100">
+			<md-card>
+				<md-card-title>
+				  <md-card-title-text>
+					<span class="md-headline">List {{listName}}</span>
+				  </md-card-title-text>
+				</md-card-title>
+				<md-card-content>
+					<ul dnd-list="list">
+						<li ng-repeat="item in list"
+							dnd-draggable="item"
+							dnd-moved="list.splice($index, 1)"
+							dnd-effect-allowed="move"
+							dnd-selected="models.selected = item"
+							ng-class="{'selected': models.selected === item}"
+							>
+							{{item.label}}
+						</li>
+					</ul>
+				</md-card-content>
+			</md-card>
+	  </div>
+	  <div layout="column" flex="50" flex-lg="33" flex-xs="100">
 		  <md-card>
 			<md-card-title>
 			  <md-card-title-text>
