@@ -31,7 +31,7 @@ todo.config(function($stateProvider, $urlRouterProvider, $httpProvider, $rootSco
 	$urlRouterProvider.otherwise('/');
 	
 	$mdThemingProvider.theme('default')
-		.primaryPalette('light-green');
+		.primaryPalette('blue');
 });
 
 todo.controller('TodoCtrl', require('./controllers/TodoCtrl'));
