@@ -10,16 +10,37 @@ var TodoCtrl = function($scope, $rootScope, $state, $stateParams, $timeout, $mdS
 	};
 	
 	$scope.models = {
-        selected: null,
-        todoLists: {"A": [], "B": [], "C": []}
-    };
+		selected: null,
+		todoLists: [],
+		allowedTypes: ['list'],
+	};
 
-    // Generate initial model
-    for (var i = 1; i <= 3; ++i) {
-        $scope.models.todoLists.A.push({label: "Item A" + i});
-        $scope.models.todoLists.B.push({label: "Item B" + i});
-        $scope.models.todoLists.C.push({label: "Item C" + i});
-    }
+	$scope.addTodoList = function() {
+		$scope.models.todoLists.push(
+			{
+				label: 'New todo list (' + $scope.models.todoLists.length + ')',
+				type: 'list',
+				allowedTypes: ['item'],
+				items: [{label: 'item 1', type: 'item'}, {label: 'item 2', type: 'item'}]
+			}
+		);
+	};
+	
+	$scope.clearAllTodoList = function() {
+		$scope.models.todoLists = [];
+	};
+	
+	$scope.addNewRow = function(list) {
+		list.items.push({label: 'new row', type: 'item'});
+	};
+	
+	$scope.clearList = function(list) {
+		list.items = [];
+	};
+	
+	$scope.openMenu = function($mdOpenMenu, ev) {
+		$mdOpenMenu(ev);
+	};
 
 };
 

@@ -11,24 +11,23 @@
 	md-list-item{
 		@extend .md-button;
 		
+		display: block;
 		margin: 0;
-		padding-top: 8px;
-		padding-bottom: 8px;
+		padding: 0;
 		
-		md-icon.material-icons{
+		md-icon.material-icons,
+		.md-list-item-inner md-icon.material-icons{
 			display: inline-block;
 			margin-top: auto;
 			margin-bottom: auto;
 			margin-right: 6px;
+			margin-left: 0;
 			vertical-align: middle;
 		}
 		.md-list-item-text{
 			display: inline-block;
 			vertical-align: middle;
 		}
-	}
-	md-list-item:hover{
-		background-color: #ECECEC;
 	}
 }
 

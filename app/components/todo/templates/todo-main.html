@@ -29,11 +29,16 @@
 		</div>
 	</md-toolbar>
 	<md-list class="action-list">
-		<md-list-item>
+		<md-list-item 
+			ng-click="addTodoList()"
+		>
 			<md-icon class="material-icons">add</md-icon>
 			<div class="md-list-item-text">Add new</div>
 		</md-list-item>
-		<md-list-item>
+		<md-list-item 
+			ng-click="clearAllTodoList()"
+			ng-disabled="!models.todoLists.length"
+		>
 			<md-icon class="material-icons">clear_all</md-icon>
 			<div class="md-list-item-text">Clear all</div>
 		</md-list-item>
@@ -43,41 +48,79 @@
 <md-content class="md-padding" layout-align="center start">
 	<div layout="row" layout-wrap>
 		<div 
-			ng-repeat="(listName, list) in models.todoLists"
+			ng-repeat="list in models.todoLists"
 			layout="column"
 			flex="50" flex-lg="33" flex-xs="100"
+			dnd-list="models.todoLists"
+			dnd-allowed-types="models.allowedTypes"
 		>
-			<md-card>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline">List {{listName}}</span>
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content dnd-list="list">
+			<md-card
+				dnd-draggable="list"
+				dnd-moved="models.todoLists.splice($index, 1)"
+				dnd-effect-allowed="move"
+				dnd-type="list.type"
+			>
+				<md-card-header>
+					<md-card-header-text>
+						<span class="md-title">{{list.label}}</span>
+					</md-card-header-text>
+					<md-menu>
+						<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+							<md-icon class="material-icons">more_vert</md-icon>
+						</md-button>
+						<md-menu-content width="4">
+							<md-menu-item>
+								<md-button>
+									<md-icon class="material-icons" md-menu-align-target>edit</md-icon>
+									Edit
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button 
+									ng-click="clearList(list)"
+									ng-disabled="!list.items.length"
+								>
+									<md-icon class="material-icons">clear_all</md-icon>
+									Clear list
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</md-card-header>
+				<md-card-content 
+					dnd-list="list.items"
+					dnd-allowed-types="list.allowedTypes"
+				>
 					<md-card 
-						ng-repeat="item in list"
+						ng-repeat="item in list.items"
 						dnd-draggable="item"
-						dnd-moved="list.splice($index, 1)"
+						dnd-moved="list.items.splice($index, 1)"
 						dnd-effect-allowed="move"
-						dnd-selected="models.selected = item"
-						ng-class="{'selected': models.selected === item}"
+						dnd-type="item.type"
 					>
-						<md-card-title>
-							<md-card-title-text>
-								<span class="md-headline">{{item.label}}</span>
-							</md-card-title-text>
-						</md-card-title>
 						<md-card-content>
 							Content
-						<md-card-content>
+						</md-card-content>
 					</md-card>
-					</ul>
+					<md-card-actions layout="row" layout-align="end center">
+						<md-button 
+							class="md-icon-button"
+							aria-label="Add new row"
+							ng-click="addNewRow(list)"
+						>
+							<md-icon class="material-icons">add</md-icon>
+						</md-button>
+					</md-card-actions>
 				</md-card-content>
 			</md-card>
 		</div>
 	</div>
+	{{model.todoLists}}
 	<div class="lock-size main-action">
-		<md-button class="md-fab md-primary md-hue-2">
+		<md-button 
+			class="md-fab md-primary md-hue-2"
+			ng-click="addTodoList()"
+		>
 			<md-icon aria-label="Add new todo list" class="material-icons">add</md-icon>
 		</md-button>
 	</div>
